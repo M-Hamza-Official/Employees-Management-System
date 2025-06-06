@@ -7,7 +7,7 @@ import { userContext } from './context/AuthProvider'
 
 function App() {
   const [user, setuser] = useState(null)
-  const authData = useContext(userContext)
+  const  [userdata,setuserdata]= useContext(userContext)
   const [LoggedInUserData, setLoggedInUserData] = useState(null)
 
   useEffect(() => {
@@ -27,11 +27,11 @@ function App() {
   }
 
   const handleLogin = (email, password) => {
-    if (authData && authData?.admin && authData?.admin?.email == email && authData?.admin?.password == password) {
+    if (userdata && userdata?.admin && userdata?.admin?.email == email && userdata?.admin?.password == password) {
       localStorage.setItem('LoggedinUser', JSON.stringify({ role: 'admin' }))
       setuser('admin')
-    } else if (authData) {
-      const employee = authData?.employee.find((e) => e?.email == email && e?.password == password)
+    } else if (userdata) {
+      const employee = userdata?.employee.find((e) => e?.email == email && e?.password == password)
 
       if (employee) {
         setLoggedInUserData(employee)

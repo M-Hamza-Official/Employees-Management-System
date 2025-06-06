@@ -5,10 +5,10 @@ import { userContext } from '../context/AuthProvider'
 
 const ListViewer = () => {
 
-    const authData = useContext(userContext)
+    const [userdata, setuserdata] = useContext(userContext)
     return (
         <>
-            {console.log(authData)}
+            {console.log(userdata?.employee)}
 
             <div className='flex  text-white bg-red-600 mt-4 px-4 py-2 justify-between text-xl rounded-md' >
                 <h2 className='w-1/6' >Name</h2>
@@ -18,8 +18,8 @@ const ListViewer = () => {
                 <h2>FailedTask</h2>
             </div>
             <div id='listviewer-wrapper' className='overflow-auto  h-[23%] bg-gray-600 mt-2 rounded-md p-3' >
-                {authData.employee.map((elm) => (
-                    <div className='flex items-start text-white overflow-auto  bg-blue-500 mt-2 px-4 py-2 justify-between text-xl rounded-md' >
+                {userdata?.employee?.map((elm, index) => (
+                    <div key={index} className='flex items-start text-white overflow-auto  bg-blue-500 mt-2 px-4 py-2 justify-between text-xl rounded-md' >
                         <h2 className='w-1/6' >{elm.firstname}</h2>
                         <h2>{elm.activeCount}</h2>
                         <h2>{elm.completedCount}</h2>

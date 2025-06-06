@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { userContext } from '../context/AuthProvider'
 
 const CreateTask = () => {
   const [title, settitle] = useState('')
@@ -7,18 +8,29 @@ const CreateTask = () => {
   const [desc, setdesc] = useState('')
   const [category, setcategory] = useState('')
   const [task, settask] = useState({})
-  const data = JSON.parse(localStorage.getItem('employees'))
-  
+  // const data = JSON.parse(localStorage.getItem('employees'))
+
+
+  const [userdata, setuserdata] = useContext(userContext)
+
+
   const submitHandler = (e) => {
     e.preventDefault();
     const newTask = { date, assinTo, desc, category, newTask: true, active: true, completed: false, failed: false }
-    settask(newTask)
-    console.log(task);
-    data.forEach(elm => {
-      console.log(elm.firstname);
-      
-    });
 
+    const data = [...userdata.employee]
+    // console.log(data);
+
+    settask(newTask)
+    // console.log(task);
+    data.forEach(elm => {
+      if (assinTo == elm.firstname) {
+        elm.tasks.push(task);
+        elm.newTaskCount = elm.newTaskCount + 1;
+
+      }
+    });
+    setuserdata(data)
     // settask()
     settitle('')
     setdate('')
