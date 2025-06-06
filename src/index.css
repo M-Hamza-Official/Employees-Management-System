@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#tasklist-wrapper::-webkit-scrollbar{
+    display: none;
+}
+textarea {
+  resize: none;
+}
+#listviewer-wrapper::-webkit-scrollbar{
+  display: none;
+}
