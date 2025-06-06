@@ -7,11 +7,19 @@ const CreateTask = () => {
   const [desc, setdesc] = useState('')
   const [category, setcategory] = useState('')
   const [task, settask] = useState({})
-
+  const data = JSON.parse(localStorage.getItem('employees'))
+  
   const submitHandler = (e) => {
     e.preventDefault();
+    const newTask = { date, assinTo, desc, category, newTask: true, active: true, completed: false, failed: false }
+    settask(newTask)
+    console.log(task);
+    data.forEach(elm => {
+      console.log(elm.firstname);
+      
+    });
 
-    settask()
+    // settask()
     settitle('')
     setdate('')
     setassinTo('')
@@ -24,7 +32,6 @@ const CreateTask = () => {
 
       <form onSubmit={(e) => submitHandler(e)} className='' >
         <div className='placeholder-black bg-slate-600 rounded-md   items-start gap-5 flex-row flex    p-4 justify-between w-[100%] mt-4'>
-
           <div className=' w-1/2'>
             <h3 className='text-white'  >Task Title</h3>
             <input value={title} onChange={(e) => settitle(e.target.value)} type="text" className='p-4 text-xl w-4/5 mb-2 outline-none  rounded-md' placeholder='Enter Title' />
