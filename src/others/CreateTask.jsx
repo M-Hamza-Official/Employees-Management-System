@@ -11,27 +11,34 @@ const CreateTask = () => {
   // const data = JSON.parse(localStorage.getItem('employees'))
 
 
-  const [userdata, setuserdata] = useContext(userContext)
+  const [userdata, setuserdata] = useContext(userContext) || [{ employee: [] }, () => {}]
 
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const newTask = { date, assinTo, desc, category, newTask: true, active: true, completed: false, failed: false }
+    const newTask = {title, date, assinTo, desc, category, newTask: true, active: true, completed: false, failed: false }
 
     const data = [...userdata.employee]
-    // console.log(data);
-
-    settask(newTask)
-    // console.log(task);
-    data.forEach(elm => {
+    
+    const UpdatedEmployee = data.map(elm => {
       if (assinTo == elm.firstname) {
-        elm.tasks.push(task);
-        elm.newTaskCount = elm.newTaskCount + 1;
+   elm.tasks.push(newTask)
+   console.log(elm);
+   
 
-      }
-    });
-    setuserdata(data)
-    // settask()
+   } 
+  return elm
+  
+  });
+// const logged = userdata.employee.map(emp => emp.firstname) 
+// console.log(data);
+
+    
+setuserdata(prev => ({
+  ...prev,
+  employee: UpdatedEmployee
+}));
+  
     settitle('')
     setdate('')
     setassinTo('')
