@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { userContext } from '../context/AuthProvider'
+import { AssignContext } from '../context/AssignToProvider'
 
 const CreateTask = () => {
   const [title, settitle] = useState('')
   const [date, setdate] = useState('')
-  const [assinTo, setassinTo] = useState('')
   const [desc, setdesc] = useState('')
   const [category, setcategory] = useState('')
   const [task, settask] = useState({})
   // const data = JSON.parse(localStorage.getItem('employees'))
-
+const [assignTo ,setAssignTo] = useContext(AssignContext)
 
   const [userdata, setuserdata] = useContext(userContext) || [{ employee: [] }, () => { }]
 
@@ -21,7 +21,7 @@ const CreateTask = () => {
     const data = [...userdata.employee]
 
     const UpdatedEmployee = data.map(elm => {
-      if (assinTo == elm.firstname) {
+      if (assignTo == elm.firstname) {
         elm.tasks.push(newTask)
 elm.activeCount = elm.activeCount + 1
 
@@ -29,8 +29,7 @@ elm.activeCount = elm.activeCount + 1
       return elm
 
     });
-    // const logged = userdata.employee.map(emp => emp.firstname) 
-    // console.log(data);
+   
 
 
     setuserdata(prev => ({
@@ -56,7 +55,7 @@ elm.activeCount = elm.activeCount + 1
             <h3 className='text-white '  >Date</h3>
             <input value={date} onChange={(e) => setdate(e.target.value)} type="date" className='p-4 text-xl w-4/5 outline-none rounded-md mb-2' />
             <h3 className='text-white'  >Assign to</h3>
-            <input value={assinTo} onChange={(e) => setassinTo(e.target.value)} type="text" className='p-4 text-xl w-4/5 outline-none rounded-md mb-2' placeholder='Employee Name' />
+            <input value={assignTo} onChange={(e) => setAssignTo(e.target.value)} type="text" className='p-4 text-xl w-4/5 outline-none rounded-md mb-2' placeholder='Employee Name' />
             <h3 className='text-white'  >Category</h3>
             <input value={category} onChange={(e) => setcategory(e.target.value)} type="text" className='p-4 text-xl w-4/5 outline-none rounded-md mb-2' placeholder='dev,design etc' />
           </div>

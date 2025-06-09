@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { userContext } from '../context/AuthProvider';
+import { AssignContext } from '../context/AssignToProvider';
 
 const AcceptTask = ({ task }) => {
-  // console.log((data.tasks.c));
+
+  const [userdata, setuserdata] = useContext(userContext);
+  const [assignTo ,setAssignTo] = useContext(AssignContext)
+
+
+  let completedListCount = userdata.employee.completedCount
+// console.log(userdata);
+
+
+  const AcceptHandler = () => {
+    console.log('Accept Handler running ');
+userdata.employee.map((e)=>{
+const userName = e.firstname;
+if(userName == assignTo )
+completedListCount = completedListCount + 1
+})
+
+// completedListCount = completedListCount + 1
+
+  }
 
   return (
     <>
@@ -13,7 +34,7 @@ const AcceptTask = ({ task }) => {
         <h2 className='font-bold text-2xl mt-4 pb-3' >{task.title}</h2>
         <p className='text-xl leading-tight'>{task.description}</p>
         <div className='flex mt-3 gap-2 justify-between items-center'>
-          <butoon className="bg-green-700 rounded-md p-3">Mark as Completed</butoon>
+          <butoon onClick={AcceptHandler} className="bg-green-700 cursor-pointer rounded-md p-3">Mark as Completed</butoon>
           <butoon className="bg-red-700 rounded-md p-3" >Mark as Failed</butoon>
         </div>
       </div>
