@@ -1,6 +1,13 @@
 import React from 'react'
+import { useEffect } from 'react'
 
 const TaskCounter = ({data}) => {
+
+  useEffect(() => {
+    console.log('i am changed');
+    
+  }, [data])
+  
   return (
     <div className='text-white flex gap-5 p-4'>
 <div className='bg-green-500    w-[45%] p-9 rounded-md mt-8'>

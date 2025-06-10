@@ -2,8 +2,18 @@ import React, { createContext, useEffect, useState } from 'react'
 import { GetLocalStorageData } from '../utiltis/LocalStorage'
 export  const userContext = createContext()
 
+
+
+
 const AuthProvider = ({ children }) => {
   const [userdata, setuserdata] = useState(null)
+  
+  useEffect(() => {
+    if (userdata) {
+      localStorage.setItem('employees', JSON.stringify(userdata.employee));
+      localStorage.setItem('admin', JSON.stringify(userdata.admin));
+    }
+  }, [userdata]);
   
   useEffect(() => {
     const { employee, admin } = GetLocalStorageData();

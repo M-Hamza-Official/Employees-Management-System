@@ -8,18 +8,18 @@ const TaskList = ({ data }) => {
     return (
         <div id='tasklist-wrapper' className=' overflow-x-auto h-[55%] mt-4 mx-4 flex gap-6 p-6 flex-nowrap text-white  rounded-sm'   >
              {
-                data?.tasks?.map((e) => {
+                data?.tasks?.map((e,index) => {
                     if (e?.active) {
-                        return <AcceptTask task={e} />
+                        return <AcceptTask key={index} task={e} />
                     }
                     if (e?.failed) {
-                        return <FailedTask task={e}/>
+                        return <FailedTask key={index} task={e}/>
                     }
                     if (e?.completed) {
-                        return <CompleteTask task={e} />
+                        return <CompleteTask key={index} task={e} />
                     }
                     if (e?.newTask) {
-                        return <NewTask task={e}/>
+                        return <NewTask key={index} task={e}/>
                     }
                 })
             }

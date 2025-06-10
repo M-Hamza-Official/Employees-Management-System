@@ -8,28 +8,26 @@ const CreateTask = () => {
   const [desc, setdesc] = useState('')
   const [category, setcategory] = useState('')
   const [task, settask] = useState({})
-  // const data = JSON.parse(localStorage.getItem('employees'))
-const [assignTo ,setAssignTo] = useContext(AssignContext)
-
+  const [assignTo, setAssignTo] = useContext(AssignContext)
   const [userdata, setuserdata] = useContext(userContext) || [{ employee: [] }, () => { }]
 
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const newTask = { title, date, assinTo, desc, category, newTask: true, active: true, completed: false, failed: false }
+    const newTask = { title, date, assignTo, desc, category, newTask: true, active: true, completed: false, failed: false }
 
     const data = [...userdata.employee]
 
     const UpdatedEmployee = data.map(elm => {
       if (assignTo == elm.firstname) {
         elm.tasks.push(newTask)
-elm.activeCount = elm.activeCount + 1
+        elm.activeCount = elm.activeCount + 1
 
       }
       return elm
 
     });
-   
+
 
 
     setuserdata(prev => ({
@@ -39,7 +37,7 @@ elm.activeCount = elm.activeCount + 1
 
     settitle('')
     setdate('')
-    setassinTo('')
+    setAssignTo('')
     setdesc('')
     setcategory('')
   }

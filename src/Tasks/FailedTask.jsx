@@ -1,9 +1,9 @@
 import React from 'react'
 
-const FailedTask = () => {
+const FailedTask = ({key}) => {
   return (
     <div>
-         <div className='bg-purple-500 flex-shrink-0  rounded-lg  h-full p-3 w-[370px] '>
+         <div data-index={key} className='bg-purple-500 flex-shrink-0  rounded-lg  h-full p-3 w-[370px] '>
                 <div className='flex justify-between'>
                     <h3 className='bg-red-500 self-start p-2 rounded-md  '>High</h3>
                     <h3 className='font-medium' >1 June 2025</h3>
