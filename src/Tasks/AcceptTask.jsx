@@ -1,41 +1,67 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { userContext } from '../context/AuthProvider';
 import { AssignContext } from '../context/AssignToProvider';
 
 const AcceptTask = ({ task }) => {
 
   const [userdata, setuserdata] = useContext(userContext);
-  const [assignTo, setAssignTo] = useContext(AssignContext);
+  const [assignTo, setAssignTo,isCompleted, setisCompleted] = useContext(AssignContext);
+
+  
+  useEffect(() => {
+  const data = [...userdata.employee]
+ 
+}, [userdata])
 
 
 
+ const AcceptHandler = () => {
+    if (!userdata || !userdata.employee) return;
 
+    const updatedEmployees = userdata.employee.map((employee) => {
+      if (employee.firstname === assignTo) {
+        let isNewTask = false;
 
-  const AcceptHandler = () => {
-    console.log('Accept Handler running ');
-   const UpdatedEmployee = userdata.employee.map((e) => {
-      const userName = e.firstname;
-      const title = e.title
-      if (userName == e.firstname && title == e.title  ) {
-        return{
-  ...e,
-      completedCount: e.completedCount + 1 , 
+        const updatedTasks = employee.tasks.map((t) => {
+          const isTargetTask =
+            t.title === task.title &&
+            t.date === task.date;
 
-}
-}
-return e
+          if (isTargetTask) {
+            isNewTask = t.newTask;
+            return {
+              ...t,
+              completed: true,
+              active: false,
+              newTask: false,
+              failed: false,
+            };
+          }
+          return t;
+        });
 
-})
-setuserdata((prev)=>(
-{
-  ...prev,
-employee : UpdatedEmployee}
-))
-localStorage.setItem('employee',JSON.stringify(UpdatedEmployee))
-// completedListCount = completedListCount + 1
-console.log(userdata);
+        return {
+          ...employee,
+          completedCount: employee.completedCount + 1,
+          activeCount: Math.max(0, employee.activeCount - 1),
+          newTaskCount: Math.max(0, employee.newTaskCount - (isNewTask ? 1 : 0)),
+          tasks: updatedTasks,
+        };
+      }
+      return employee;
+    });
 
-  }
+    const updatedUserdata = {
+      ...userdata,
+      employee: updatedEmployees,
+    };
+
+    setuserdata(updatedUserdata);
+    localStorage.setItem('employees', JSON.stringify(updatedEmployees));
+    console.log('Updated user data:', updatedUserdata);
+    alert("Task marked as completed and saved to localStorage!");
+  };
+
 
 return (
   <>
