@@ -16,7 +16,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (userdata && userdata.employee.length > 0) {
       localStorage.setItem('employees', JSON.stringify(userdata.employee));
-      localStorage.setItem('admin', JSON.stringify(userdata.admin));
     }
   }, [userdata]);
 

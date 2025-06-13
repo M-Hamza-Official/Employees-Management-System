@@ -5,6 +5,7 @@ import FailedTask from '../Tasks/FailedTask'
 import CompleteTask from '../Tasks/CompleteTask'
 
 const TaskList = ({ data }) => {
+console.log("Rendering TaskList with:", data?.tasks);
     
     return (
         <div id='tasklist-wrapper' className=' overflow-x-auto h-[55%] mt-4 mx-4 flex gap-6 p-6 flex-nowrap text-white  rounded-sm'   >

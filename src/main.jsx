@@ -6,11 +6,11 @@ import AuthProvider from './context/AuthProvider.jsx'
 import AssignProvider from './context/AssignToProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <AuthProvider>
       <AssignProvider>
       <App />
       </AssignProvider>
     </AuthProvider>
-  </StrictMode>,
+  /* </StrictMode>, */
 )

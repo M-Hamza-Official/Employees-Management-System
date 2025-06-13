@@ -17,6 +17,7 @@ function App() {
     if (loggedinUser) {
       setuser(loggedinUser.role)
       setLoggedInUserData(loggedinUser.data)
+``
     }
   }, [])
 
@@ -26,7 +27,7 @@ function App() {
     setuser('')
   }
 
-  const handleLogin = (email, password) => {
+  const handleLogin = (email, password,firstname) => {
     if (userdata && userdata?.admin && userdata?.admin?.email == email && userdata?.admin?.password == password) {
       localStorage.setItem('LoggedinUser', JSON.stringify({ role: 'admin' }))
       setuser('admin')

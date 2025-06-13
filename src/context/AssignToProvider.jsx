@@ -1,16 +1,21 @@
-import React, { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react';
 
-export const AssignContext = createContext()
+export const AssignContext = createContext();
 
-const AssignProvider = ({ children }) => {
-  const [assignTo, setAssignTo] = useState('')
-  const [isCompleted, setisCompleted] = useState('')
+const AssignToProvider = ({ children }) => {
+  const [assignTo, setAssignTo] = useState(() => {
+    return localStorage.getItem('assignTo') || '';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('assignTo', assignTo);
+  }, [assignTo]);
 
   return (
-    <AssignContext.Provider value={[assignTo, setAssignTo,isCompleted,setisCompleted]}>
-      {children} 
+    <AssignContext.Provider value={[assignTo, setAssignTo]}>
+      {children}
     </AssignContext.Provider>
-  )
-}
+  );
+};
 
-export default AssignProvider
+export default AssignToProvider;

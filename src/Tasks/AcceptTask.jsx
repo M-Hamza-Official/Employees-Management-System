@@ -1,84 +1,103 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react';
 import { userContext } from '../context/AuthProvider';
 import { AssignContext } from '../context/AssignToProvider';
 
 const AcceptTask = ({ task }) => {
-
   const [userdata, setuserdata] = useContext(userContext);
-  const [assignTo, setAssignTo,isCompleted, setisCompleted] = useContext(AssignContext);
+  const [assignTo,setAssignTo] = useContext(AssignContext);
 
-  
-  useEffect(() => {
-  const data = [...userdata.employee]
- 
-}, [userdata])
+  const markTaskAs = (status) => {
+    if (!userdata?.employee) return;
 
+    const updatedEmployees = userdata.employee.map(employee => {
+      if (employee.firstname !== assignTo) return employee;
 
+      let taskFound = false;
+      let wasNewTask = false;
+      let wasActive = false;
 
- const AcceptHandler = () => {
-    if (!userdata || !userdata.employee) return;
+      const updatedTasks = employee.tasks.map(t => {
+        const isTargetTask = (
+          t.title === task.title &&
+          t.description === task.description &&
+          t.date === task.date &&
+          t.category === task.category
+        );
 
-    const updatedEmployees = userdata.employee.map((employee) => {
-      if (employee.firstname === assignTo) {
-        let isNewTask = false;
+        if (isTargetTask) {
+          taskFound = true;
+          wasNewTask = t.newTask;
+          wasActive = t.active;
 
-        const updatedTasks = employee.tasks.map((t) => {
-          const isTargetTask =
-            t.title === task.title &&
-            t.date === task.date;
+          return {
+            ...t,
+            completed: status === 'completed',
+            active: status === 'completed' ? false : wasActive,
+            newTask: false,
+            failed: status === 'failed'
+          };
+        }
+        return t;
+      });
 
-          if (isTargetTask) {
-            isNewTask = t.newTask;
-            return {
-              ...t,
-              completed: true,
-              active: false,
-              newTask: false,
-              failed: false,
-            };
-          }
-          return t;
-        });
+      if (!taskFound) return employee;
 
-        return {
-          ...employee,
-          completedCount: employee.completedCount + 1,
-          activeCount: Math.max(0, employee.activeCount - 1),
-          newTaskCount: Math.max(0, employee.newTaskCount - (isNewTask ? 1 : 0)),
-          tasks: updatedTasks,
-        };
-      }
-      return employee;
+      const countChanges = {
+        completed: status === 'completed' ? 1 : 0,
+        active: status === 'completed' ? -1 : 0,
+        newTask: wasNewTask ? -1 : 0,
+        failed: status === 'failed' ? 1 : 0
+      };
+
+      return {
+        ...employee,
+        tasks: updatedTasks,
+        completedCount: employee.completedCount + countChanges.completed,
+        activeCount: Math.max(0, employee.activeCount + countChanges.active),
+        newTaskCount: Math.max(0, employee.newTaskCount + countChanges.newTask),
+        failedCount: employee.failedCount + countChanges.failed
+      };
     });
 
     const updatedUserdata = {
       ...userdata,
-      employee: updatedEmployees,
+      employee: updatedEmployees
     };
 
     setuserdata(updatedUserdata);
-    localStorage.setItem('employees', JSON.stringify(updatedEmployees));
-    console.log('Updated user data:', updatedUserdata);
-    alert("Task marked as completed and saved to localStorage!");
+    localStorage.setItem('userdata', JSON.stringify(updatedUserdata));
+console.log('AssignTo:', assignTo);
+console.log('Matched employee:', updatedEmployees.find(e => e.firstname === assignTo));
+console.log('Updated employees:', updatedEmployees);
   };
 
+  const handleComplete = () => markTaskAs('completed');
+  const handleFailed = () => markTaskAs('failed');
 
-return (
-  <>
-    <div className='bg-purple-500 flex-shrink-0  rounded-lg  h-full p-3 w-[370px] '>
+  return (
+    <div className='bg-purple-500 flex-shrink-0 rounded-lg h-full p-3 w-[370px]'>
       <div className='flex justify-between'>
-        <h3 className='bg-red-500 self-start p-2 rounded-md  '>{task.category}</h3>
-        <h3 className='font-medium' >{task.date}</h3>
+        <h3 className='bg-red-500 self-start p-2 rounded-md'>{task.category}</h3>
+        <h3 className='font-medium'>{task.date}</h3>
       </div>
-      <h2 className='font-bold text-2xl mt-4 pb-3' >{task.title}</h2>
+      <h2 className='font-bold text-2xl mt-4 pb-3'>{task.title}</h2>
       <p className='text-xl leading-tight'>{task.description}</p>
       <div className='flex mt-3 gap-2 justify-between items-center'>
-        <button onClick={AcceptHandler} className="bg-green-700 cursor-pointer rounded-md p-3">Mark as Completed</button>
-        <button className="bg-red-700 rounded-md p-3" >Mark as Failed</button>
+        <button 
+          onClick={handleComplete} 
+          className="bg-green-700 cursor-pointer rounded-md p-3"
+        >
+          Mark as Completed
+        </button>
+        <button 
+          onClick={handleFailed} 
+          className="bg-red-700 rounded-md p-3"
+        >
+          Mark as Failed
+        </button>
       </div>
     </div>
-  </>
-)
-}
+  );
+};
 
-export default AcceptTask     
+export default AcceptTask;
