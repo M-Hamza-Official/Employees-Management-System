@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { userContext } from '../context/AuthProvider';
 import { AssignContext } from '../context/AssignToProvider';
 
-const AcceptTask = ({ task }) => {
+const AcceptTask = ({ task ,key}) => {
   const [userdata, setuserdata] = useContext(userContext);
   const [assignTo,setAssignTo] = useContext(AssignContext);
 
@@ -66,16 +66,16 @@ const AcceptTask = ({ task }) => {
 
     setuserdata(updatedUserdata);
     localStorage.setItem('userdata', JSON.stringify(updatedUserdata));
-console.log('AssignTo:', assignTo);
-console.log('Matched employee:', updatedEmployees.find(e => e.firstname === assignTo));
-console.log('Updated employees:', updatedEmployees);
+// console.log('AssignTo:', assignTo);
+// console.log('Matched employee:', updatedEmployees.find(e => e.firstname === assignTo));
+// console.log('Updated employees:', updatedEmployees);
   };
 
   const handleComplete = () => markTaskAs('completed');
   const handleFailed = () => markTaskAs('failed');
 
   return (
-    <div className='bg-purple-500 flex-shrink-0 rounded-lg h-full p-3 w-[370px]'>
+    <div data-index={key} className='bg-purple-500 flex-shrink-0 rounded-lg h-full p-3 w-[370px]'>
       <div className='flex justify-between'>
         <h3 className='bg-red-500 self-start p-2 rounded-md'>{task.category}</h3>
         <h3 className='font-medium'>{task.date}</h3>
@@ -87,6 +87,7 @@ console.log('Updated employees:', updatedEmployees);
           onClick={handleComplete} 
           className="bg-green-700 cursor-pointer rounded-md p-3"
         >
+          {/* {console.log("key from Accept Task",key)} */}
           Mark as Completed
         </button>
         <button 

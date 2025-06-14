@@ -16,14 +16,14 @@ const Login = ({ handleLogin }) => {
     handleLogin(email, password);
 
     // Find the matched employee
-    const matchedEmployee = userdata.employee.find(
-      emp => emp.email === email && emp.password === password
+    const matchedEmployee = userdata?.employee?.find(
+      emp => emp?.email === email && emp?.password === password
     );
 
     if (matchedEmployee) {
-      setAssignTo(matchedEmployee.firstname); // 🔥 Set the logged-in name
+      setAssignTo(matchedEmployee?.firstname); // 🔥 Set the logged-in name
       localStorage.setItem('assignTo', matchedEmployee.firstname); // Optional: persist
-      console.log('Assigned to:', matchedEmployee.firstname);
+      // console.log('Assigned to:', matchedEmployee.firstname);
     } else {
       console.error('Login failed: No matching employee found.');
     }

@@ -11,7 +11,7 @@ const CompleteTask = ({key}) => {
                 <h2 className='font-bold text-2xl mt-4 pb-3' >Make a DataBase Design</h2>
                 <p className='text-xl leading-tight'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae ullam adipisci totam nihil harum animi laborum ex fugit. Quia, veritatis accusamus. Architecto doloribus quaerat modi, nesciunt aperiam dolorem excepturi mollitia.</p>
             <div className='flex mt-3 gap-2 justify-between items-center'>
-                <butoon className="bg-green-700 rounded-md p-3">Mark as Completed</butoon>
+                <butoon className="bg-green-700 rounded-md p-3">Mark as from Completed</butoon>
             </div>
             </div>
     </div>

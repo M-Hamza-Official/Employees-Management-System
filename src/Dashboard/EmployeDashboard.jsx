@@ -9,7 +9,7 @@ const EmployeDashboard = ({data , logout}) => {
     <div className='bg-[#1c1c1c] h-screen'>
 
     <Header logout={logout} data={data} />
-    <TaskCounter data={data}  />
+    <TaskCounter   />
     <TaskList  data={data} />
     </div>
     

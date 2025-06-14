@@ -10,16 +10,16 @@ function App() {
   const  [userdata,setuserdata]= useContext(userContext)
   const [LoggedInUserData, setLoggedInUserData] = useState(null)
 
-  useEffect(() => {
-    const loggedinUser = JSON.parse(localStorage.getItem('LoggedinUser'))
-    console.log(loggedinUser?.role);
+useEffect(() => {
+  const loggedinUser = JSON.parse(localStorage?.getItem('LoggedinUser'));
+  console.log(loggedinUser?.role);
 
-    if (loggedinUser) {
-      setuser(loggedinUser.role)
-      setLoggedInUserData(loggedinUser.data)
-``
-    }
-  }, [])
+  if (loggedinUser) {
+    setuser(loggedinUser.role);
+    setLoggedInUserData(loggedinUser.data);
+  }
+}, []);
+
 
   const HandleLogOut = () => {
     localStorage.removeItem('LoggedinUser')
@@ -28,15 +28,17 @@ function App() {
   }
 
   const handleLogin = (email, password,firstname) => {
+    
     if (userdata && userdata?.admin && userdata?.admin?.email == email && userdata?.admin?.password == password) {
       localStorage.setItem('LoggedinUser', JSON.stringify({ role: 'admin' }))
       setuser('admin')
     } else if (userdata) {
-      const employee = userdata?.employee.find((e) => e?.email == email && e?.password == password)
+      const employee = userdata?.employee?.find((e) => e?.email == email && e?.password == password)
 
       if (employee) {
         setLoggedInUserData(employee)
         setuser('employee')
+        
         console.log(employee);
         localStorage.setItem('LoggedinUser', JSON.stringify({ role: 'employee', data: employee }))
       }
