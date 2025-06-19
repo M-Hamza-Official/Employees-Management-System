@@ -28,9 +28,7 @@ const currentEmployee = userdata.employee?.find(emp => emp.firstname === assignT
                     // if (e?.failed ) {
                     //     return <FailedTask key={index} task={e}/>
                     // }
-                    if (e?.completed ) {
-                        return <CompleteTask key={index} task={e} />
-                    }
+                    
                     if (e?.newTask && !e.completed) {
                         return <NewTask key={index} task={e}/>
                     }

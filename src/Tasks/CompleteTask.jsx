@@ -6,7 +6,7 @@ const CompleteTask = ({key,task}) => {
   
   return (
     <div>
-         <div data-index={key} className='bg-purple-500 flex-shrink-0  rounded-lg  h-full p-3 w-[370px] '>
+         <div data-index={key}  className='bg-purple-500 flex-shrink-0  rounded-lg  h-full p-3 w-[370px] '>
                 <div className='flex justify-between'>
                     <h3 className='bg-red-500 self-start p-2 rounded-md  '>{task.category}</h3>
                     <h3 className='font-medium' >{task.date}</h3>
