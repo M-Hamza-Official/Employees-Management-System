@@ -1,22 +1,24 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { GetLocalStorageData, SetLocalStorageData } from '../utiltis/LocalStorage';
 
 export const userContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [userdata, setuserdata] = useState(() => {
-    // Load from localStorage on first render
-    const storedData = localStorage.getItem('userdata');
-    return storedData
-      ? JSON.parse(storedData)
-      : { employee: [], admin: {} };
-  });
+      const stored = localStorage.getItem('userdata');
+      const parsed = stored ? JSON.parse(stored) : null;
+      
 
-  useEffect(() => {
-    // Save to localStorage whenever userdata changes
-    if (userdata) {
-      localStorage.setItem('userdata', JSON.stringify(userdata));
-    }
-  }, [userdata]);
+  });
+  
+    useEffect(() => {
+        SetLocalStorageData()
+        const {employee , admin} = GetLocalStorageData()
+        setuserdata({employee,admin})
+    }, [])
+
+
+
 
   return (
     <userContext.Provider value={[userdata, setuserdata]}>

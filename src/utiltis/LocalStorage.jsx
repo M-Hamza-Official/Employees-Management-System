@@ -19,35 +19,35 @@ const employees = [
     failedCount: 1,
     tasks: [
       {
-        title: "Prepare Report",
-        description: "Monthly sales report for the team",
-        date: "2025-06-01",
-        category: "Reporting",
-        active: true,
-        newTask: true,
-        completed: false,
-        failed: false
-      },
-      {
-        title: "Client Meeting",
-        description: "Meeting with XYZ Corp",
-        date: "2025-06-03",
-        category: "Meetings",
-        active: true,
-        newTask: false,
-        completed: true,
-        failed: false
-      },
-      {
-        title: "Code Review",
-        description: "Review teammate's code",
-        date: "2025-06-04",
-        category: "Development",
-        active: false,
-        newTask: false,
-        completed: false,
-        failed: true
+        title: "",
+        description: "",
+        date: "",
+        category: "",
+        active:"" ,
+        newTask:"" ,
+        completed:"" ,
+        failed: ""
       }
+      // {
+      //   title: "Client Meeting",
+      //   description: "Meeting with XYZ Corp",
+      //   date: "2025-06-03",
+      //   category: "Meetings",
+      //   active: true,
+      //   newTask: false,
+      //   completed: true,
+      //   failed: false
+      // },
+      // {
+      //   title: "Code Review",
+      //   description: "Review teammate's code",
+      //   date: "2025-06-04",
+      //   category: "Development",
+      //   active: false,
+      //   newTask: false,
+      //   completed: false,
+      //   failed: true
+      // }
     ]
   },
   {

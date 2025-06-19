@@ -29,12 +29,14 @@ useEffect(() => {
 
   const handleLogin = (email, password,firstname) => {
     
+    console.log(userdata);
     if (userdata && userdata?.admin && userdata?.admin?.email == email && userdata?.admin?.password == password) {
       localStorage.setItem('LoggedinUser', JSON.stringify({ role: 'admin' }))
       setuser('admin')
     } else if (userdata) {
       const employee = userdata?.employee?.find((e) => e?.email == email && e?.password == password)
 
+      
       if (employee) {
         setLoggedInUserData(employee)
         setuser('employee')

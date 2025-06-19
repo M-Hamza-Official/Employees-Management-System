@@ -1,31 +1,36 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { userContext } from '../context/AuthProvider';
 import { AssignContext } from '../context/AssignToProvider';
 
 const Login = ({ handleLogin }) => {
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-
   const [assignTo, setAssignTo] = useContext(AssignContext);
   const [userdata] = useContext(userContext);
 
   const HandlerSubmit = (e) => {
     e.preventDefault();
+// console.log(userdata);
 
-    // Perform login (can include your logic in handleLogin)
+    // Prevent running if userdata is not ready
+    // if (!userdata || !userdata.employee || userdata.employee.length === 0) {
+    //   alert("User data not loaded yet. Try again.");
+    //   return;
+    // }
+
+    // Run login logic
     handleLogin(email, password);
 
-    // Find the matched employee
+    // Find employee safely
     const matchedEmployee = userdata?.employee?.find(
-      emp => emp?.email === email && emp?.password === password
+      (emp) => emp?.email === email && emp?.password === password
     );
 
     if (matchedEmployee) {
-      setAssignTo(matchedEmployee?.firstname); // 🔥 Set the logged-in name
-      localStorage.setItem('assignTo', matchedEmployee.firstname); // Optional: persist
-      // console.log('Assigned to:', matchedEmployee.firstname);
+      setAssignTo(matchedEmployee.firstname);
+      localStorage.setItem('assignTo', matchedEmployee.firstname);
     } else {
-      console.error('Login failed: No matching employee found.');
+      alert('Invalid credentials.');
     }
 
     setemail('');
@@ -34,7 +39,7 @@ const Login = ({ handleLogin }) => {
 
   return (
     <div className='h-screen w-full bg-black flex items-center justify-center'>
-      <div className='border-2 rounded-md p-9 border-red-600 w-[30%] '>
+      <div className='border-2 rounded-md p-9 border-red-600 w-[30%]'>
         <form onSubmit={HandlerSubmit} className='flex flex-col gap-4 items-center justify-center'>
           <input
             required
@@ -45,7 +50,6 @@ const Login = ({ handleLogin }) => {
             className='px-3 outline-none text-xl border-red-600 border-2 mx-10 w-full rounded-3xl py-5'
             placeholder='Enter email'
           />
-
           <input
             required
             value={password}
@@ -55,7 +59,6 @@ const Login = ({ handleLogin }) => {
             className='px-3 outline-none border-red-600 border-2 mx-10 text-xl w-full rounded-3xl py-5'
             placeholder='Enter password'
           />
-
           <button
             className='px-4 mx-10 w-full text-xl bg-red-600 rounded-3xl py-4 text-white'
           >

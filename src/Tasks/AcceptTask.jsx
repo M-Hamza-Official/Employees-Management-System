@@ -6,6 +6,10 @@ const AcceptTask = ({ task ,key}) => {
   const [userdata, setuserdata] = useContext(userContext);
   const [assignTo,setAssignTo] = useContext(AssignContext);
 
+
+// console.log(userdata);
+
+
   const markTaskAs = (status) => {
     if (!userdata?.employee) return;
 
@@ -87,7 +91,6 @@ const AcceptTask = ({ task ,key}) => {
           onClick={handleComplete} 
           className="bg-green-700 cursor-pointer rounded-md p-3"
         >
-          {/* {console.log("key from Accept Task",key)} */}
           Mark as Completed
         </button>
         <button 
