@@ -36,7 +36,7 @@ const AcceptTask = ({ task ,key}) => {
           return {
             ...t,
             completed: status === 'completed',
-            active: status === 'completed' ? false : wasActive,
+            active: status ===  false ,
             newTask: false,
             failed: status === 'failed'
           };

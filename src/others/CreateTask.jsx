@@ -8,7 +8,7 @@ const CreateTask = () => {
   const [desc, setdesc] = useState('')
   const [category, setcategory] = useState('')
   const [assignTo, setAssignTo] = useContext(AssignContext)
-  const [userdata, setuserdata] = useContext(userContext) || [{ employee: [] }, () => { }]
+  const [userdata, setuserdata] = useContext(userContext) 
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -43,11 +43,14 @@ const CreateTask = () => {
     });
 
     // Update state
-    setuserdata(prev => ({
-      ...prev,
-      employee: updatedEmployees
-    }));
-
+   const updatedUserdata = {
+  ...userdata,
+  employee: updatedEmployees
+};
+setuserdata(updatedUserdata)
+    // console.log(userdata);
+    
+    localStorage.setItem('userdata',JSON.stringify(updatedUserdata))
     // Reset form
     settitle('')
     setdate('')

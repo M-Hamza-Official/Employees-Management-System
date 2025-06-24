@@ -13,41 +13,44 @@ const employees = [
     email: "user1@me.com",
     password: "123",
     taskCount: 3,
-    activeCount: 2,
-    newTaskCount: 1,
-    completedCount: 1,
-    failedCount: 1,
+    activeCount: 0,
+    newTaskCount: 0,
+    completedCount: 0,
+    failedCount: 0,
     tasks: [
       {
-        title: "",
-        description: "",
-        date: "",
-        category: "",
-        active:"" ,
-        newTask:"" ,
-        completed:"" ,
-        failed: ""
+       
+  title: "Sample Task",
+  description: "This is a placeholder",
+  date: "2025-06-11",
+  category: "General",
+  active: true,
+  newTask: true,
+  completed: false,
+  failed: false
+
+
+      },
+      {
+        title: "Client Meeting",
+        description: "Meeting with XYZ Corp",
+        date: "2025-06-03",
+        category: "Meetings",
+        active: true,
+        newTask: false,
+        completed: true,
+        failed: false
+      },
+      {
+        title: "Code Review",
+        description: "Review teammate's code",
+        date: "2025-06-04",
+        category: "Development",
+        active: false,
+        newTask: false,
+        completed: false,
+        failed: true
       }
-      // {
-      //   title: "Client Meeting",
-      //   description: "Meeting with XYZ Corp",
-      //   date: "2025-06-03",
-      //   category: "Meetings",
-      //   active: true,
-      //   newTask: false,
-      //   completed: true,
-      //   failed: false
-      // },
-      // {
-      //   title: "Code Review",
-      //   description: "Review teammate's code",
-      //   date: "2025-06-04",
-      //   category: "Development",
-      //   active: false,
-      //   newTask: false,
-      //   completed: false,
-      //   failed: true
-      // }
     ]
   },
   {
@@ -266,9 +269,15 @@ const employees = [
 
 
 export const SetLocalStorageData = () => {
-  localStorage.setItem('employees', JSON.stringify(employees))
-  localStorage.setItem('admin', JSON.stringify(admin))
-}
+  // Only set if not already present (first time only)
+  if (!localStorage.getItem('employees')) {
+    localStorage.setItem('employees', JSON.stringify(employees));
+  }
+  if (!localStorage.getItem('admin')) {
+    localStorage.setItem('admin', JSON.stringify(admin));
+  }
+};
+
 export const GetLocalStorageData = () => {
   const employee = JSON.parse(localStorage.getItem('employees'))
   const admin = JSON.parse(localStorage.getItem('admin'))

@@ -29,9 +29,7 @@ const Login = ({ handleLogin }) => {
     if (matchedEmployee) {
       setAssignTo(matchedEmployee.firstname);
       localStorage.setItem('assignTo', matchedEmployee.firstname);
-    } else {
-      alert('Invalid credentials.');
-    }
+    } 
 
     setemail('');
     setpassword('');

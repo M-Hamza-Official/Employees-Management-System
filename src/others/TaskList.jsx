@@ -7,21 +7,21 @@ import { userContext } from '../context/AuthProvider'
 import { AssignContext } from '../context/AssignToProvider'
 
 const TaskList = ({ data }) => {
-    const [userdata] = useContext(userContext);
+    const [userdata,canShow] = useContext(userContext);
 const [assignTo] = useContext(AssignContext);
 
 const currentEmployee = userdata.employee?.find(emp => emp.firstname === assignTo);
 
 
     return (
-        <div id='tasklist-wrapper' className=' overflow-x-auto h-[55%] mt-4 mx-4 flex gap-6 p-6 flex-nowrap text-white  rounded-sm'   >
+        <div id='tasklist-wrapper' className=' overflow-x-auto  mt-4 mx-4 flex gap-6 p-6 flex-nowrap text-white  rounded-sm'   >
              {
 
                 
                 currentEmployee?.tasks?.map((e,index) => {
                     
-                    if (e?.active && !e.completed ) {
-                        console.log(data);
+                    if (  canShow &&  e?.active && !e.completed && !e.FailedTask ) {
+                        // console.log(data);
                         return <AcceptTask key={index} task={e} />
                         
                     }
@@ -29,7 +29,7 @@ const currentEmployee = userdata.employee?.find(emp => emp.firstname === assignT
                     //     return <FailedTask key={index} task={e}/>
                     // }
                     
-                    if (e?.newTask && !e.completed) {
+                    if (  canShow && e?.newTask && !e.completed ) {
                         return <NewTask key={index} task={e}/>
                     }
                 })
