@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
     const stored = localStorage.getItem('userdata');
     return stored ? JSON.parse(stored) : null;
   });
-  const [canShow, setcanShow] = useState(false)
+  const [canShow, setcanShow] = useState(true)
 
   useEffect(() => {
     const stored = localStorage.getItem('userdata');

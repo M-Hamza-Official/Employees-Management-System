@@ -6,7 +6,7 @@ import CompleteTask from '../Tasks/CompleteTask'
 import { userContext } from '../context/AuthProvider'
 import { AssignContext } from '../context/AssignToProvider'
 
-const TaskList = ({ data }) => {
+const TaskList = ({ data,showActive }) => {
     const [userdata,canShow] = useContext(userContext);
 const [assignTo] = useContext(AssignContext);
 
@@ -20,7 +20,7 @@ const currentEmployee = userdata.employee?.find(emp => emp.firstname === assignT
                 
                 currentEmployee?.tasks?.map((e,index) => {
                     
-                    if (  canShow &&  e?.active && !e.completed && !e.FailedTask ) {
+                    if (  showActive &&  e?.active && !e.completed && !e.FailedTask ) {
                         // console.log(data);
                         return <AcceptTask key={index} task={e} />
                         
@@ -29,7 +29,7 @@ const currentEmployee = userdata.employee?.find(emp => emp.firstname === assignT
                     //     return <FailedTask key={index} task={e}/>
                     // }
                     
-                    if (  canShow && e?.newTask && !e.completed ) {
+                    if (  showActive && e?.newTask && !e.completed ) {
                         return <NewTask key={index} task={e}/>
                     }
                 })
